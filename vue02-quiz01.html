@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="http://unpkg.com/vue@2.6.12/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <h3>부모 컴포넌트에서 데이터 전달</h3>
+
+        <global-com v-bind:globaldata="value"></global-com>
+        <local-com v-bind:localdata="value"></local-com>
+    </div>
+
+    <script>
+        Vue.component("global-com", {
+            props: ['globaldata'],
+            template: "<p>부모에게서 전달받은 데이터 : {{globaldata}}</p>"
+        });
+
+        var cmp = {
+            props: ['localdata'],
+            template: "<p>부모에게서 전달받은 데이터 : {{localdata}}</p>"
+        }
+
+        new Vue({
+            el: "#app",
+            data: {
+                value: 10000
+            },
+            components: {
+                'local-com': cmp
+            }
+        });
+    </script>
+</body>
+</html>

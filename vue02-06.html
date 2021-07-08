@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 버스 사용하기</title>
+
+    <script src="http://unpkg.com/vue@2.6.12/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h3>이벤트 버스를 이용한 데이터 전달</h3>
+
+        <local-com></local-com>
+    </div>
+
+    <script>
+        var dataSender = new Vue();
+
+        var cmp = {
+            template: "<button v-on:click='sendData'>전송</button>",
+            methods: {
+                sendData: function() {
+                    this.cmpData += 1;
+                    dataSender.$emit("sendEvent", this.cmpData);
+                }
+            },
+            data: function() {
+                return {
+                    cmpData : 100
+                }
+            }
+        };
+
+        var app = new Vue({
+            el: "#app",
+            created: function() {
+                dataSender.$on("sendEvent", function(data) {
+                    console.log("전달받은 데이터 : " + data);
+                });
+            },
+            components: {
+                'local-com': cmp
+            }
+        });
+    </script>
+</body>
+</html>

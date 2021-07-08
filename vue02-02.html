@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부모 컴포넌트에서 자식으로 데이터 전달(지역 컴포넌트)</title>
+
+    <script src="http://unpkg.com/vue@2.6.12/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h3>부모 컴포넌트에서 자식 컴포넌트로 데이터 전달</h3>
+
+        <h3>부모의 데이터 : {{ data }}</h3>
+        <my-local-compo v-bind:parentdata='data'></my-local-compo>
+    </div>
+
+    <script>
+        var cmp = {
+            props: ['parentdata'],
+            template: "<p>부모 컴포넌트에서 전달받은 데이터 : {{ parentdata }}</p>"
+        }
+
+        new Vue({
+            el: '#app',
+            data: {
+                'data': 10000
+            },
+            components: {
+                'my-local-compo' : cmp
+            }
+        });
+    </script>
+</body>
+</html>
+

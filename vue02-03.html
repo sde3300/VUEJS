@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="http://unpkg.com/vue@2.6.12/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <child-component v-on:show-log="printText"></child-component>
+    </div>
+
+    <hr>
+
+    <!-- <script>
+        function asdf() {
+            alert('aaa');
+            alert('asdasd');
+            alert('qweqwe');
+        }
+    </script>
+
+    <button id="btn" onclick="asdf();">클릭</button>
+     -->
+
+    <script>
+        Vue.component("child-component", {
+            template: "<button v-on:click='showLog'>Show</button>",
+            methods: {
+                showLog: function() {
+                    this.$emit("show-log", 100);
+                }
+            }
+        });
+
+        new Vue({
+            el: "#app",
+            data: {
+                message: "hello vue! passed from Parent component"
+            },
+            methods: {
+                printText: function(data) {
+                    console.log("received an event : " + data);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

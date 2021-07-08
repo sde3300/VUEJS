@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="http://unpkg.com/vue@2.6.12/dist/vue.js"></script>
+
+    <script>
+        // html의 모든 컨텐츠가 모두 로딩된 이후에 js가 동작
+        // window.load = function() {
+        // }
+
+        // html 요소만 모두 로딩되면 js가 동작
+        // 구형 브라우저를 미지원
+        addEventListener("DOMContentLoaded", function() {
+            Vue.component("mycom", {
+                template: "<button v-on:click='sendEvent'>서버로 전송</button>",
+                methods: {
+                    sendEvent : function() {
+                        this.$emit("child-event", 100);
+                    }
+                }
+            });
+
+            new Vue({
+                el: "#app",
+                data: {
+                    msg : "부모 컴포넌트의 데이터"
+                },
+                methods: {
+                    printText: function(data) {
+                        console.log("자식 컴포넌트에서 전달된 데이터 : " + data);
+                    }
+                },
+            });
+        });
+    </script>
+
+</head>
+<body>
+    <div id="app">
+        <h3>자식 컴포넌트에서 부모 컴포넌트로 데이터 전달</h3>
+
+        <mycom v-on:child-event="printText"></mycom>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>props를 이용한 데이터 전달</title>
+
+    <script src="http://unpkg.com/vue@2.6.12/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <h3>props를 이용한 데이터 전달(부모 -> 자식)</h3>
+        <h3>부모의 데이터 : {{ msg }}</h3>
+        <mycom v-bind:parentdata='msg'></mycom>
+    </div>
+
+    <script>
+        Vue.component('mycom', {
+            props: ['parentdata'],
+            template: '<h3>부모에게서 전달받은 데이터 : {{ parentdata }}</h3>'
+        });
+
+        new Vue({
+            el: '#app',
+            data: {
+                'msg': 200
+            }
+        });
+    </script>
+</body>
+</html>

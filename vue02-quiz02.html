@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="http://unpkg.com/vue@2.6.12/dist/vue.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <h3>자식 컴포넌트에서 데이터 받기</h3>
+        <local-com v-on:send-event="receiveData"></local-com>
+    </div>
+
+    <script>
+        var cmp = {
+            template: "<button v-on:click='sendData'>Send Data</button>",
+            // 인스턴스의 data 항목은 data: {변수명 : 값} 형태로 사용이 가능하지만, 컴포넌트의 data 항목은 함수(data : function() { return {변수명: 값}}) 형태로 구성되어 있어야함
+            data: function() {
+                return {
+                    childData : 100
+                }
+            },
+            // data() {
+            //     return {
+            //         childData : 100
+            //     }
+            // },
+            methods: {
+                sendData: function() {
+                    // data 항목을 사용하려면 this 키워드를 사용함
+                    this.childData += 1;
+                    this.$emit("send-event", this.childData);
+                }
+            }
+        }
+
+        new Vue({
+            el: "#app",
+            data: {
+                parentData : 10000
+            },
+            // 지역 컴포넌트를 등록
+            components: {
+                'local-com' : cmp
+            },
+            // 뷰 인스턴스에서 사용하는 로직
+            methods: {
+                // receiveData 라는 이름의 함수를 선언
+                receiveData: function (data) {
+                    console.log("부모 컴포넌트의 데이터 : " + this.parentData);
+                    console.log("자식 컴포넌트의 데이터 : " + data);
+                }
+            },
+        });
+    </script>
+</body>
+</html>
