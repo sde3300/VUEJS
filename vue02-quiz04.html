@@ -16,10 +16,10 @@
     </div>
 
     <script>
-// 문제 4) 전역 컴포넌트 2개를 선언하고 첫번째 컴포넌트의 템플릿에 있는 button 태그를 클릭 시 이벤트 버스를 사용하 데이터를 뷰 인스턴스로 전송하고 뷰 인스턴스로 전송된 데이터를 props를 통해서 두번째 컴포넌트로 전달하는 프로그램을 작성하세요
+// 문제 4) 전역 컴포넌트 2개를 선언하고 첫번째 컴포넌트의 템플릿에 있는 button 태그를 클릭 시 이벤트 버스를 사용하여 데이터를 뷰 인스턴스로 전송하고 뷰 인스턴스로 전송된 데이터를 props를 통해서 두번째 컴포넌트로 전달하는 프로그램을 작성하세요
 // * 첫번째 컴포넌트 명 : compo1
 // * 두번째 컴포넌트 명 : compo2
-// * 두번째 컴포넌트의 props 명 : receiveProp
+// * 두번째 컴포넌트의 props 명 : receive
 // * 이벤트 버스명 : eventBus
 // * 이벤트 버스의 이벤트명 : eventSend
 // * 뷰 인스턴스의 data 항목의 변수명 : value
@@ -63,6 +63,7 @@
                 eventBus.$on("eventSend", function(data) {
                     // 전역변수 app에 할당된 뷰 인스턴스가 가지고 있는 변수 value에 eventSend 이벤트 동작시 전송받은 데이터를 대입
                     // 이 곳에서 this 키워드를 사용 시 eventBus를 가르키게 되므로 반드시 app.value를 사용해야 함
+                    // this.value = data;
                     app.value = data;
                 });
             }
